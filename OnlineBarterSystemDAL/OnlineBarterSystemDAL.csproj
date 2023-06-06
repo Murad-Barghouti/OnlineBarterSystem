@@ -9,7 +9,6 @@
   <ItemGroup>
     <Folder Include="Interfaces\" />
     <Folder Include="Migrations\" />
-    <Folder Include="ModelsScaffold\" />
     <Folder Include="Models\" />
     <Folder Include="Repositories\" />
   </ItemGroup>
