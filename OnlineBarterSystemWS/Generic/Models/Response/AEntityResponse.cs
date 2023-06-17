@@ -2,5 +2,6 @@
 {
     public abstract class AEntityResponse
     {
+        public long Id { get; set; }
     }
 }

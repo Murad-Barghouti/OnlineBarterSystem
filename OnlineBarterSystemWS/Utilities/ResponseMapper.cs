@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
+using OnlineBarterSystemDAL.Models;
 using OnlineBarterSystemWS.Generic.Models.Response;
+using OnlineBarterSystemWS.Models.Response;
 
 namespace OnlineBarterSystemWS.Utilities
 {
@@ -11,8 +13,8 @@ namespace OnlineBarterSystemWS.Utilities
         {
             var config = new MapperConfiguration(cfg =>
             {
-                //cfg.CreateMap<City, CityResponse>().IgnoreAllPropertiesWithAnInaccessibleSetter();
-                //cfg.CreateMap<Course, CourseResponse>().IgnoreAllPropertiesWithAnInaccessibleSetter();
+                cfg.CreateMap<City, CityResponse>().IgnoreAllPropertiesWithAnInaccessibleSetter();
+                cfg.CreateMap<AspNetUser, UserResponse>().IgnoreAllPropertiesWithAnInaccessibleSetter();
             });
 
             _mapper = config.CreateMapper();
