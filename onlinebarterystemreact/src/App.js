@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import "./App.css";
 
 export default class App extends Component {
     static displayName = App.name;
@@ -44,7 +43,7 @@ export default class App extends Component {
             : App.renderForecastsTable(this.state.forecasts);
 
         return (
-            <div className="App-header">
+            <div>
                 <h1 id="tabelLabel" >Weather forecast</h1>
                 <p>This component demonstrates fetching data from the server.</p>
                 {contents}
