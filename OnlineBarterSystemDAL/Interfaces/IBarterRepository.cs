@@ -14,5 +14,12 @@ namespace OnlineBarterSystemDAL.Interfaces
             double? receiveValue, string? description);
         Task<List<Barter>> GetAllBartersAsync();
         Task<List<Barter>> GetUserBartersAsync(long id);
+        Task<Barter> UpdateBarterAsync(long id, double? giveValue, double? receiveValue, string? description);
+        Task<Barter> GetBarterByIdAsync(long id);
+        Task<Barter> DeleteBarterByIdAsync(long id);
+        Task<Barter> JoinBarterAsync(long id, string userName);
+        Task<Barter> LeaveBarterAsync(long id);
+        Task<Barter> RejectBarterAsync(long id);
+        Task<Barter> ApproveBarterAsync(long id);
     }
 }
