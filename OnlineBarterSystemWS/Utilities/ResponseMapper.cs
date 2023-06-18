@@ -14,7 +14,16 @@ namespace OnlineBarterSystemWS.Utilities
             var config = new MapperConfiguration(cfg =>
             {
                 cfg.CreateMap<City, CityResponse>().IgnoreAllPropertiesWithAnInaccessibleSetter();
-                cfg.CreateMap<AspNetUser, UserResponse>().IgnoreAllPropertiesWithAnInaccessibleSetter();
+                cfg.CreateMap<AspNetUser, UserResponse>().IgnoreAllPropertiesWithAnInaccessibleSetter()
+                .ForMember(response => response.City, entity => entity.MapFrom(model => model.City));
+                cfg.CreateMap<BarterState, BarterStateResponse>().IgnoreAllPropertiesWithAnInaccessibleSetter();
+                cfg.CreateMap<SubCategory, SubCategoryResponse>().IgnoreAllPropertiesWithAnInaccessibleSetter()
+                .ForMember(response => response.Category, entity => entity.MapFrom(model => model.Category));
+                cfg.CreateMap<Category, CategoryResponse>().IgnoreAllPropertiesWithAnInaccessibleSetter();
+                cfg.CreateMap<Barter, BarterResponse>().IgnoreAllPropertiesWithAnInaccessibleSetter()
+                .ForMember(response => response.GiveType, entity => entity.MapFrom(model => model.GiveType))
+                .ForMember(response => response.ReceiveType, entity => entity.MapFrom(model => model.ReceiveType))
+                .ForMember(response => response.GiveType, entity => entity.MapFrom(model => model.GiveType));
             });
 
             _mapper = config.CreateMapper();

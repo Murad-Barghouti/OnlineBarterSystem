@@ -33,7 +33,6 @@ namespace OnlineBarterSystemWS.Controllers
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [ProducesResponseType((int)HttpStatusCode.Unauthorized)]
-        [ProducesResponseType((int)HttpStatusCode.NotFound)]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         public async Task<IActionResult> SignUp([FromBody] SignUpModel signUpModel)
         {
@@ -42,7 +41,7 @@ namespace OnlineBarterSystemWS.Controllers
                 var city = await _cityRepository.GetCityByIdAsync(signUpModel.CityId);
                 if (city == null)
                 {
-                    return NotFound($"City with Id {signUpModel.CityId} does not exist");
+                    return BadRequest($"City with Id {signUpModel.CityId} does not exist");
                 }
                 var signUpHelper = _requestMapper.Map<SignUpModel, HSignUpModel>(signUpModel);
                 var result = await _accountRepository.SignUpAsync(signUpHelper);
@@ -83,7 +82,7 @@ namespace OnlineBarterSystemWS.Controllers
             }
         }
 
-        [HttpPut]
+        [HttpPut("updateUserInformation")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [ProducesResponseType((int)HttpStatusCode.Unauthorized)]
@@ -98,7 +97,7 @@ namespace OnlineBarterSystemWS.Controllers
                     var city = await _cityRepository.GetCityByIdAsync((long)updateUserRequest.CityId);
                     if (city == null)
                     {
-                        return NotFound($"City with Id {updateUserRequest.CityId} does not exist");
+                        return BadRequest($"City with Id {updateUserRequest.CityId} does not exist");
                     }
                 }
                 var user = await _accountRepository.UpdateUserAsync(updateUserRequest.UserName, updateUserRequest.CurrentPassword,

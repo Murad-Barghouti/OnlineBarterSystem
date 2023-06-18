@@ -16,5 +16,6 @@ namespace OnlineBarterSystemDAL.Interfaces
         Task<AspNetUser> GetUserByUserNameAsync(string userName);
         Task<AspNetUser> UpdateUserAsync(string? userName, string? currentPassword, string? newPassword, string? firstName,
             string? lastName, string? phoneNumber, long? cityId);
+        Task<AspNetUser> GetUserByIdAsync(long id);
     }
 }

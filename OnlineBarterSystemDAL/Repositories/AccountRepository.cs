@@ -82,5 +82,11 @@ namespace OnlineBarterSystemDAL.Repositories
             }
             return user;
         }
+
+        public async Task<AspNetUser> GetUserByIdAsync(long id)
+        {
+            var user = await _userManager.Users.FirstOrDefaultAsync(u => u.Id == id);
+            return user;
+        }
     }
 }
