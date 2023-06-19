@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./Signup.module.css";
 import { NavLink } from "react-router-dom";
 import { MdError } from "react-icons/md";
 import logo from "../../assets/obslogo.png";
-import { cities } from "../../data";
+//import { cities } from "../../data";
 
 const Signup = () => {
     const [formState, setFormState] = useState({
@@ -13,9 +13,24 @@ const Signup = () => {
         confirmpassword: "",
         city:""
     });
+    const [cities, setCityState] = useState([]);
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
     const [success, setSuccess] = useState(false);
+
+    const baseURL = "https://localhost:7073/api";
+    useEffect(() => {
+        fetch(baseURL+"/City")
+           .then((response) => response.json())
+           .then((cities) => {
+              console.log(cities);
+              setCityState(cities);
+           })
+           .catch((err) => {
+              console.log(err.message);
+           });
+     }, []);
+    
 
     const handleChange = (e) => {
         setFormState({
@@ -90,10 +105,10 @@ const Signup = () => {
                                 onChange={(e) => handleChange(e)}
                                 style={{ textTransform: 'capitalize' }}
                             >
-                                <option value="" disabled selected >Select your city location</option>
+                                <option value="" disabled>Select your city location</option>
                                 {
                                     cities.map((item) => {
-                                        return <><option value={item} style={{ textTransform: 'capitalize' }}>{item}</option></>;
+                                        return <option value={item.id} key={item.id} style={{ textTransform: 'capitalize' }}>{item.name}</option>;
                                     })
                                 }
                                 
