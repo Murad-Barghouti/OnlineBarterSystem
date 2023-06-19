@@ -44,7 +44,7 @@ namespace OnlineBarterSystemDAL.Repositories
 
         public async Task<AspNetUser> GetUserByUserNameAsync(string userName)
         {
-            var user = await _userManager.Users.Include(u => u.City).Where(u => u.UserName.ToLower().Equals(userName.ToLower())).FirstOrDefaultAsync();
+            var user = await _userManager.Users.Include(u => u.City).Include(u => u.BarterInitiators).Include(u => u.BarterJoiners).Where(u => u.UserName.ToLower().Equals(userName.ToLower())).FirstOrDefaultAsync();
             return user;
         }
 

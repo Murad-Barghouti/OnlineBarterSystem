@@ -59,11 +59,19 @@ namespace OnlineBarterSystemWS.Controllers
         }
         [HttpPost("signin")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
         public async Task<IActionResult> SignIn([FromBody] SignInRequest signInRequest)
         {
             try
             {
-                return Ok();
+                var user = await _accountRepository.GetUserByUserNameAsync(signInRequest.UserName);
+                if (user == null)
+                {
+                    return NotFound();
+                }
+
+                var userResponse = _responseMapper.Map<AspNetUser, UserBarterResponse>(user);
+                return Ok(userResponse);
             }
             catch (Exception)
             {
@@ -86,7 +94,7 @@ namespace OnlineBarterSystemWS.Controllers
                 {
                     return NotFound($"User with user name {userName} does not exist");
                 }
-                var userResponse = _responseMapper.Map<AspNetUser, UserResponse>(user);
+                var userResponse = _responseMapper.Map<AspNetUser, UserBarterResponse>(user);
 
                 return Ok(userResponse);
             }
