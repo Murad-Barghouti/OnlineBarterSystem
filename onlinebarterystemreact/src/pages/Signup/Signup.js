@@ -7,11 +7,14 @@ import logo from "../../assets/obslogo.png";
 
 const Signup = () => {
     const [formState, setFormState] = useState({
-        fullname: "",
+        firstName: "",
+        lastName: "",
+        userName:"",
         email: "",
         password: "",
-        confirmpassword: "",
-        city:""
+        confirmPassword: "",
+        phoneNumber: "",
+        cityId: ""
     });
     const [cities, setCityState] = useState([]);
     const [error, setError] = useState("");
@@ -44,9 +47,28 @@ const Signup = () => {
         setError("");
         e.preventDefault();
 
-        if (!formState.email || !formState.password || !formState.fullname || !formState.confirmpassword||!formState.city) {
+        if (!formState.email || !formState.password || !formState.firstName || !formState.lastName || !formState.confirmPassword
+            || !formState.phoneNumber || !formState.cityId || !formState.userName) {
+            console.log(formState);
             setError("All of the fields are required");
             setLoading(false);
+            console.log(formState);
+        } else {
+            console.log(formState);
+            //formState.city = ++formState.city;
+            console.log(JSON.stringify(formState));
+            const requestOptions = {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formState)
+            };
+            console.log(requestOptions);
+            fetch(baseURL+"/signup", requestOptions)
+                .then(response => response.json())
+                .then(data => console.log(data))
+                .catch((err) => {
+                    console.log(err.message);
+                 });
         }
     };
 
@@ -68,10 +90,26 @@ const Signup = () => {
                         <form className={styles.signupForm}>
                             <input
                                 type="text"
-                                placeholder="Full Name"
-                                id="fullname"
-                                name="fullname"
-                                value={formState.fullname}
+                                placeholder="First Name"
+                                id="firstName"
+                                name="firstName"
+                                value={formState.firstName}
+                                onChange={(e) => handleChange(e)}
+                            />
+                            <input
+                                type="text"
+                                placeholder="Last Name"
+                                id="lastName"
+                                name="lastName"
+                                value={formState.lastName}
+                                onChange={(e) => handleChange(e)}
+                            />
+                            <input
+                                type="text"
+                                placeholder="User Name"
+                                id="userName"
+                                name="userName"
+                                value={formState.userName}
                                 onChange={(e) => handleChange(e)}
                             />
                             <input
@@ -80,6 +118,14 @@ const Signup = () => {
                                 id="email"
                                 name="email"
                                 value={formState.email}
+                                onChange={(e) => handleChange(e)}
+                            />
+                             <input
+                                type="text"
+                                placeholder="Phone number"
+                                id="phoneNumber"
+                                name="phoneNumber"
+                                value={formState.phoneNumber}
                                 onChange={(e) => handleChange(e)}
                             />
                             <input
@@ -93,15 +139,15 @@ const Signup = () => {
                             <input
                                 type="password"
                                 placeholder="Confirm password"
-                                id="confirmpassword"
-                                name="confirmpassword"
-                                value={formState.password}
+                                id="confirmPassword"
+                                name="confirmPassword"
+                                value={formState.confirmPassword}
                                 onChange={(e) => handleChange(e)}
                             />
                             <select
-                                id="city"
-                                name="city"
-                                value={formState.city}
+                                id="cityId"
+                                name="cityId"
+                                value={formState.cityId}
                                 onChange={(e) => handleChange(e)}
                                 style={{ textTransform: 'capitalize' }}
                             >
