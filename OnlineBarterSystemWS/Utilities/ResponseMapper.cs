@@ -34,6 +34,8 @@ namespace OnlineBarterSystemWS.Utilities
                 .ForMember(response => response.SubCategories, entity => entity.MapFrom(model => model.SubCategories));
 
                 cfg.CreateMap<SubCategory, ChildSubCategoryResponse>().IgnoreAllPropertiesWithAnInaccessibleSetter();
+
+                cfg.CreateMap<AspNetUser, UserBarterResponse>().IgnoreAllPropertiesWithAnInaccessibleSetter();
             });
 
             _mapper = config.CreateMapper();
