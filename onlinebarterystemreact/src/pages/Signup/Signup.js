@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 import styles from "./Signup.module.css";
-import { NavLink } from "react-router-dom";
+import { NavLink , useNavigate} from "react-router-dom";
 import { MdError } from "react-icons/md";
 import logo from "../../assets/obslogo.png";
-//import { cities } from "../../data";
 
 const Signup = () => {
     const [formState, setFormState] = useState({
@@ -16,6 +15,7 @@ const Signup = () => {
         phoneNumber: "",
         cityId: ""
     });
+    const navigate = useNavigate();
     const [cities, setCityState] = useState([]);
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
@@ -49,40 +49,35 @@ const Signup = () => {
 
         if (!formState.email || !formState.password || !formState.firstName || !formState.lastName || !formState.confirmPassword
             || !formState.phoneNumber || !formState.cityId || !formState.userName) {
-            console.log(formState);
             setError("All of the fields are required");
             setLoading(false);
-            console.log(formState);
         } else {
-            console.log(formState);
-            //formState.city = ++formState.city;
-            console.log(JSON.stringify(formState));
+            signUp();
+        }
+    };
+
+    const signUp = async () => {
+        try {
             const requestOptions = {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(
-                    formState
-                    // {
-                    //     firstName: formState.firstName,
-                    //     lastName: formState.lastName,
-                    //     userName: formState.userName,
-                    //     email: formState.email,
-                    //     password: formState.password,
-                    //     confirmPassword: formState.confirmPassword,
-                    //     phoneNumber: formState.phoneNumber,
-                    //     cityId: parseInt(formState.cityId)
-                    // }
-                    )
+                body: JSON.stringify(formState)
             };
-            console.log(requestOptions);
-            fetch(baseURL+"Account/signup", requestOptions)
-                .then(response => response.json())
-                .then(data => console.log(data))
-                .catch((err) => {
-                    console.log(err.message);
-                 });
+          const response = await fetch(baseURL+"/Account/signup", requestOptions, requestOptions);
+    
+          if (!response?.ok) {
+            throw new Error(
+              `Error! status: ${response.status} message ${response.message}`
+            );
+          }    
+
+          navigate("/signin");
+
+        } catch (err) {
+          console.log(err.message);
+        } finally {
         }
-    };
+      };
 
     return (
         <div className={styles.container}>
