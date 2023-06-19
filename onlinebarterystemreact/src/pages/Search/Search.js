@@ -11,10 +11,13 @@ const Search = () => {
     const [cities, setCityState] = useState([]);
     const [formState, setFormState] = useState({
         searchTerm:"",
-        category: "",
-        subcategory: "",
+        categoryId: "",
+        subCategoryId: "",
         cityId:""
     });
+    const [allBarters, setAllBarters] = useState([]);
+    const [categories, setCategories] = useState([]);
+    const [subCategories, setSubCategories] = useState([]);
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
     const [success, setSuccess] = useState(false);
@@ -24,7 +27,6 @@ const Search = () => {
         fetch(baseURL+"/City")
            .then((response) => response.json())
            .then((cities) => {
-              console.log(cities);
               setCityState(cities);
            })
            .catch((err) => {
@@ -32,11 +34,39 @@ const Search = () => {
            });
      }, []);
 
+     useEffect(() => {
+        fetch(baseURL+"/Category")
+           .then((response) => response.json())
+           .then((categories) => {
+            setCategories(categories);
+           })
+           .catch((err) => {
+              console.log(err.message);
+           });
+     }, []);
+
+     useEffect(() => {
+        fetch(baseURL+"/Barter")
+           .then((response) => response.json())
+           .then((barters) => {
+              console.log(barters);
+              setAllBarters(barters);
+           })
+           .catch((err) => {
+              console.log(err.message);
+           });
+     }, []);
+
     const handleChange = (e) => {
+        if(e.target.name =="category"){
+            let category = categories.find(val => val.id == e.target.value);
+            setSubCategories(category.subCategories);
+        }
         setFormState({
             ...formState,
             [e.target.name]: e.target.value,
         });
+        console.log(formState);
     };
 
     const handleSubmit = (e) => {
@@ -76,41 +106,48 @@ const Search = () => {
                                 onChange={(e) => handleChange(e)}
                             />
                             <select
+                                defaultValue=""
                                 id="category"
                                 name="category"
-                                value={formState.category}
+                                //value={formState.categoryId}
                                 onChange={(e) => handleChange(e)}
                                 style={{ textTransform: 'capitalize' }}
                             >
-                                <option value="" disabled selected >Select the category</option>
+                                <option value="" disabled>Select the category</option>
                                 {
-                                    categoryList.map((item) => {
-                                        return <><option value={item.category} style={{ textTransform: 'capitalize' }}>{item.category}</option></>;
+                                    categories.map((item) => {
+                                        return <option value={item.id} key={item.id} style={{ textTransform: 'capitalize' }}>{item.name}</option>;
                                     })
                                 }
                             </select>
                             <select
+                                defaultValue=""
                                 id="subcategory"
                                 name="subcategory"
-                                value={formState.subcategory}
+                                //value={formState.subCategoryId}
                                 onChange={(e) => handleChange(e)}
                                 style={{ textTransform: 'capitalize' }}
                             >
-                                <option value="" disabled selected >Select the subcategory</option>
+                                <option value="" disabled>Select the subcategory</option>
                                 {
-                                    formState.category != '' && categoryList.filter(obj => { return obj.category === formState.category })[0].subcategories.length != 0
-                                    && categoryList.filter(obj => { return obj.category === formState.category })[0].subcategories.map((item) => {
-                                        return <><option value={item} style={{ textTransform: 'capitalize' }}>{item}</option></>;
-                                    })
+                                    ///formState.category != '' && categoryList.filter(obj => { return obj.category === formState.category })[0].subcategories.length != 0
+                                    //&& categoryList.filter(obj => { return obj.category === formState.category })[0].subcategories.map((item) => {
+                                        //return <><option value={item} style={{ textTransform: 'capitalize' }}>{item}</option></>;
+                                        subCategories?.map((item) =>{
+                                            return <option value={item.id} key={item.id} style={{ textTransform: 'capitalize' }}>{item.name}</option>;
+                                        })
+    
                                 }
                             </select>
+                            
                             <select
+                                defaultValue=""
                                 id="cityId"
                                 name="cityId"
                                 onChange={(e) => handleChange(e)}
                                 style={{ textTransform: 'capitalize' }}
                             >
-                                <option value="" disabled selected >Select your city location</option>
+                                <option value="" disabled>Select your city location</option>
                                 {
                                     cities.map((item) => {
                                         return <option value={item.id} key={item.id} style={{ textTransform: 'capitalize' }}>{item.name}</option>;
@@ -130,19 +167,19 @@ const Search = () => {
                     </div>
                     <div className={styles.list}>
                        
-                        {searchResults.length != 0 ? searchResults.map((item) => {
+                        {allBarters.length != 0 ? allBarters.map((item) => {
                             const { username, barter } = item;
                             return (
-                                <div className={styles.item}>
+                                <div key ={item.id} className={styles.item}>
                                     <div className={styles.infoContainer}>
                                         <div className={styles.info}>
                                             <div className={styles.userInfo}>
-                                                Posted by <FaUserCircle style={{ fontSize: 20, position: 'relative', top: 4 }} /> <b className={styles.fullname}>{username}</b>
+                                                Posted by <FaUserCircle style={{ fontSize: 20, position: 'relative', top: 4 }} /> <b className={styles.fullname}>{item.initiator.firstName} {item.initiator.lastName}</b>
                                             </div>
                                             <div className={styles.details}>
-                                                <p><b>Want to trade: </b> {barter.wantToTrade}</p>
+                                                <p><b>Want to trade: </b> {item.giveType.name}</p>
                                                 <img className={styles.arrows} src={arrows} alt="arrows" />
-                                                <p><b>For: </b> {barter.wantInReturn}</p>
+                                                <p><b>For: </b> {item.receiveType.name}</p>
                                             </div>
                                         </div>
                                     </div>
