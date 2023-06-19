@@ -82,6 +82,31 @@ const Search = () => {
         }
     };
 
+    const getBarters = async (id) => {
+    
+        try {
+          const response = await fetch(baseURL+"/Barter", {
+            method: 'GET',
+            headers: {
+              Accept: 'application/json',
+            },
+          });
+    
+          if (!response.ok) {
+            throw new Error(`Error! status: ${response.status} message ${response.message}`);
+          }
+    
+          const result = await response.json();
+    
+          setAllBarters(result);
+
+        } catch (err) {
+          console.log(err.message);
+        } finally {
+        }
+      };
+      
+
     const handleClickSearch = async () => {
     
         try {
@@ -106,15 +131,54 @@ const Search = () => {
         }
       };
     
-    const searchResults = [
-        { username: "jane doe", barter: { wantToTrade: "levis jeans", wantInReturn: "600TL" } },
-        { username: "sara lane", barter: { wantToTrade: "gold equipment", wantInReturn: "signed sports jersey" } },
-        { username: "matt damon", barter: { wantToTrade: "Cooked meal prep", wantInReturn: "copywriting" } },
+      const handleClickJoinBarter = async (id) => {
+    
+        try {
+          const response = await fetch(baseURL+"/Barter/joinBarter/"+id+"?userName="+user.userName, {
+            method: 'GET',
+            headers: {
+              Accept: 'application/json',
+            },
+          });
+    
+          if (!response.ok) {
+            throw new Error(`Error! status: ${response.status} message ${response.message}`);
+          }
+    
+          const result = await response.json();
+    
+          getBarters();
 
-    ]
+        } catch (err) {
+          console.log(err.message);
+        } finally {
+        }
+      };
 
+      
+      const handleClickLeaveBarter = async (id) => {
+    
+        try {
+          const response = await fetch(baseURL+"/Barter/leaveBarter/"+id, {
+            method: 'GET',
+            headers: {
+              Accept: 'application/json',
+            },
+          });
+    
+          if (!response.ok) {
+            throw new Error(`Error! status: ${response.status} message ${response.message}`);
+          }
+    
+          const result = await response.json();
+    
+          getBarters();
 
-
+        } catch (err) {
+          console.log(err.message);
+        } finally {
+        }
+      };
     return (
         <div className={styles.container}>
             <div className={styles.overlay}>
@@ -206,13 +270,13 @@ const Search = () => {
                                             </div>
                                         </div>
                                     </div>
-                                    {item.initiator.id != user.id && 
+                                    {item.initiatorId != user.id && item.joinerId != user.id && item.joinerId == null &&
                                     <div className={styles.buttons}>
-                                        <button>PARTICIPATE</button>
+                                        <button onClick={(e) => handleClickJoinBarter(item.id)}>Join Barter</button>
                                     </div>}
-                                    {item.joiner?.id == user.id && 
+                                    {item.joinerId == user.id && 
                                     <div className={styles.buttons}>
-                                        <button>LEAVE</button>
+                                        <button onClick={(e) => handleClickLeaveBarter(item.id)}>Leave Barter</button>
                                     </div>}
                                     
                                 </div>
