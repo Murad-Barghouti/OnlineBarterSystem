@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState , useEffect } from "react";
 import styles from "./Search.module.css";
 import { NavLink } from "react-router-dom";
 import { MdError } from "react-icons/md";
@@ -8,18 +8,29 @@ import Navbar from "../../components/Navbar/Navbar";
 import {cities, categoryList }  from "../../data"
 
 const Search = () => {
-
+    const [cities, setCityState] = useState([]);
     const [formState, setFormState] = useState({
         searchTerm:"",
         category: "",
         subcategory: "",
-        city:""
+        cityId:""
     });
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
     const [success, setSuccess] = useState(false);
 
-
+    const baseURL = "https://localhost:7073/api";
+    useEffect(() => {
+        fetch(baseURL+"/City")
+           .then((response) => response.json())
+           .then((cities) => {
+              console.log(cities);
+              setCityState(cities);
+           })
+           .catch((err) => {
+              console.log(err.message);
+           });
+     }, []);
 
     const handleChange = (e) => {
         setFormState({
@@ -33,7 +44,7 @@ const Search = () => {
         setError("");
         e.preventDefault();
 
-        if (formState.searchTerm==="" && formState.category === "" && formState.subcategory === "" && formState.city === "") {
+        if (formState.searchTerm==="" && formState.category === "" && formState.subcategory === "" && formState.cityId === "") {
             setError("Fill atleast one of the fields above.");
             setLoading(false);
         }
@@ -94,15 +105,15 @@ const Search = () => {
                                 }
                             </select>
                             <select
-                                id="city"
-                                name="city"
+                                id="cityId"
+                                name="cityId"
                                 onChange={(e) => handleChange(e)}
                                 style={{ textTransform: 'capitalize' }}
                             >
                                 <option value="" disabled selected >Select your city location</option>
                                 {
                                     cities.map((item) => {
-                                        return <><option value={item} style={{ textTransform: 'capitalize' }}>{item}</option></>;
+                                        return <option value={item.id} key={item.id} style={{ textTransform: 'capitalize' }}>{item.name}</option>;
                                     })
                                 }
 
