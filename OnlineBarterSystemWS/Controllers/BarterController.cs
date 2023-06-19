@@ -207,6 +207,7 @@ namespace OnlineBarterSystemWS.Controllers
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
+        [ProducesResponseType((int)HttpStatusCode.Conflict)]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         public async Task<IActionResult> JoinBarter(long id, [FromQuery][BindRequired] string userName)
         {
@@ -221,6 +222,10 @@ namespace OnlineBarterSystemWS.Controllers
                 if (user == null)
                 {
                     return BadRequest($"User with user name {userName} not found");
+                }
+                if (user.Id == barter.InitiatorId)
+                {
+                    return Conflict("Cant join a barter you initiated");
                 }
                 barter = await _barterRepository.JoinBarterAsync(id, userName);
                 var barterResponse = _responseMapper.Map<Barter, BarterResponse>(barter);
@@ -269,6 +274,7 @@ namespace OnlineBarterSystemWS.Controllers
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
+        [ProducesResponseType((int)HttpStatusCode.Conflict)]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         public async Task<IActionResult> RejectBarter(long id)
         {
@@ -278,6 +284,10 @@ namespace OnlineBarterSystemWS.Controllers
                 if (barter == null)
                 {
                     return NotFound("Barter not found");
+                }
+                if (barter.Joiner == null)
+                {
+                    return Conflict("Barter doesn't have a joiner");
                 }
                 /*
                 var user = await _accountRepository.GetUserByUserNameAsync(userName);
