@@ -22,6 +22,8 @@ const Search = () => {
     const [loading, setLoading] = useState(false);
     const [success, setSuccess] = useState(false);
 
+    const user = JSON.parse(localStorage.getItem('currentUserInfo'));
+
     const baseURL = "https://localhost:7073/api";
     useEffect(() => {
         fetch(baseURL+"/City")
@@ -204,9 +206,15 @@ const Search = () => {
                                             </div>
                                         </div>
                                     </div>
+                                    {item.initiator.id != user.id && 
                                     <div className={styles.buttons}>
                                         <button>PARTICIPATE</button>
-                                    </div>
+                                    </div>}
+                                    {item.joiner?.id == user.id && 
+                                    <div className={styles.buttons}>
+                                        <button>LEAVE</button>
+                                    </div>}
+                                    
                                 </div>
                             );
                         }) :
