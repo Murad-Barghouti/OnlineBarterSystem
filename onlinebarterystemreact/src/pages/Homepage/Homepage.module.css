@@ -26,10 +26,11 @@
     padding:40px;
 }
 
-.headerItem{
+.headerItem {
     margin: 40px;
-    font-size:22px;
-    font-weight:700;
+    font-size: 22px;
+    font-weight: 700;
+    color: #2A1E5C;
 }
 
 .headerItem:hover{

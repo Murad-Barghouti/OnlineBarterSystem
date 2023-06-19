@@ -82,7 +82,7 @@ const Signup = () => {
                                 value={formState.password}
                                 onChange={(e) => handleChange(e)}
                             />
-                            <select id="city" name="city" >
+                            <select id="city" name="city" onChange={(e) => handleChange(e)}>
                                 <option value="" disabled selected >Select your city location</option>
                                 <option value="ankara">Ankara</option>
                                 <option value="istanbul">Istanbul</option>

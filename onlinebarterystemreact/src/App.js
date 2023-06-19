@@ -4,6 +4,11 @@ import Signup from './pages/Signup/Signup';
 import Signin from './pages/Signin/Signin';
 import Homepage from './pages/Homepage/Homepage';
 import ContactUs from './pages/ContactUs/ContactUs';
+import ParticipationgBarters from './pages/ParticipatingBarters/ParticipatingBarters';
+import MyBarters from './pages/MyBarters/MyBarters';
+import AddABarter from './pages/AddABarter/AddABarters';
+import BarterRequests from './pages/BarterRequests/BarterRequests';
+import EditBarter from './pages/EditBarter/EditBarter';
 
 export default class App extends Component {
     static displayName = App.name;
@@ -49,6 +54,11 @@ export default class App extends Component {
                         <Route exact path='/signup' element={<Signup />} />
                         <Route exact path='/signin' element={<Signin />} />
                         <Route exact path='/contactus' element={<ContactUs />} />
+                        <Route exact path='/addbarter' element={<AddABarter />} />
+                        <Route exact path='/editbarter/:id' element={<EditBarter />} />
+                        <Route exact path='/profile/participatingbarters' element={<ParticipationgBarters />} />
+                        <Route exact path='/profile/mybarters' element={<MyBarters />} />
+                        <Route exact path='/profile/requests' element={<BarterRequests />} />
                     </Routes>
                 </Router>
             </div>

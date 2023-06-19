@@ -13,7 +13,14 @@
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="src\components\Navbar\" />
+    <Folder Include="src\components\Profile\" />
     <Folder Include="src\pages\ContactUs\" />
+    <Folder Include="src\pages\AddABarter\" />
+    <Folder Include="src\pages\MyBarters\" />
+    <Folder Include="src\pages\BarterRequests\" />
+    <Folder Include="src\pages\EditBarter\" />
+    <Folder Include="src\pages\AccountInfo\" />
+    <Folder Include="src\pages\ParticipatingBarters\" />
     <Folder Include="src\pages\Signin\" />
   </ItemGroup>
 </Project>

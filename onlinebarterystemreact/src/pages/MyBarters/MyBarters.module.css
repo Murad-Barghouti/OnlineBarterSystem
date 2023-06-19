@@ -1,0 +1,132 @@
+.container {
+    margin: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.overlay {
+    background-color: #0A0F0D;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow-y: scroll;
+}
+
+.main {
+    margin: 20px auto;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    width: 900px;
+    background: #fff;
+}
+
+.profile {
+    border: 1px solid #0A0F0D;
+    padding: 30px;
+    display: flex;
+    align-items: center;
+}
+
+.profilepic {
+    width: 100px;
+    margin-right: 30px
+}
+
+.profileInfo {
+    color: #0A0F0D;
+    line-height: 25px;
+}
+
+    .profileInfo .fullname {
+        font-size: 20px;
+        text-transform: capitalize;
+        font-weight: 700;
+        padding-left: 5px;
+    }
+
+    .profileInfo .email {
+        font-style: italic;
+        padding-left: 5px;
+    }
+
+    .profileInfo .city {
+        text-transform: capitalize;
+        font-weight: 500
+    }
+
+.tabBar {
+    display: flex;
+    height: 70px;
+}
+
+    .tabBar a {
+        border: 1px solid #0A0F0D;
+        width: 300px;
+        text-align: center;
+        color: #0A0F0D;
+        text-transform: uppercase;
+        font-weight: 800;
+        font-size: 17px;
+        line-height: 65px;
+    }
+
+        .tabBar a.active {
+            border: 1px solid #2A1E5C;
+            background: #2A1E5C;
+            color: #fff;
+            font-weight: 700;
+        }
+
+.addBarter {
+    padding: 20px;
+    border: 1px solid #0A0F0D;
+}
+
+.addBarter button{
+    display:flex;
+    align-items:center;
+    margin:auto;
+    color: #fff;
+    padding: 25px;
+    text-transform: uppercase;
+    font-weight:700;
+    font-size:16px;
+    background:#0A0F0D;
+}
+
+.item {
+    display: flex;
+    align-items: center;
+    height: 120px;
+    padding: 0 40px;
+    border: 1px solid #0A0F0D;
+}
+
+        .item .details {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+    }
+
+        .item .details p {
+            text-transform: capitalize;
+        }
+
+        .item .details b {
+            text-transform: none;
+        }
+
+    .item .userInfo .fullname {
+        text-transform: capitalize;
+    }
+
+    .item .buttons {
+        text-align: right;
+        margin-left: auto;
+        color: #0A0F0D
+    }
