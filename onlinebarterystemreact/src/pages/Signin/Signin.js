@@ -6,8 +6,8 @@ import logo from "../../assets/obslogo.png";
 
 const Signin = () => {
     const [formState, setFormState] = useState({
-           userName: "",
-        password: "",
+        userName: "",
+        password: ""
     });
     const navigate = useNavigate();
     const [error, setError] = useState("");
@@ -32,8 +32,8 @@ const Signin = () => {
             setError("All of the fields are required");
             setLoading(false);
         } else {
-            //console.log(formState);
-            //console.log(JSON.stringify(formState));
+            console.log(formState);
+            console.log(JSON.stringify(formState));
             const requestOptions = {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -41,12 +41,13 @@ const Signin = () => {
             };
             console.log(requestOptions);
             fetch(baseURL + "/Account/signin", requestOptions)
-                .then(response => response.json())
-                .then(data => console.log(data))
-                .catch((err) => {
-                    console.log(err.message);
+                .then(data => {
+                    console.log(data);
                     localStorage.setItem('currentUsername', formState.userName);
                     navigate("/profile/mybarters");
+                })
+                .catch((err) => {
+                    console.log(err.message);                   
                 });
         }
     };

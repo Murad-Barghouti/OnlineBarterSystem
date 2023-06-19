@@ -22,10 +22,11 @@ const MyBarters = () => {
 
     useEffect(() => {
         var currentUsername = localStorage.getItem('currentUsername');
-        fetch(baseURL + "/Category")
+        fetch(baseURL + "/Account/" + currentUsername)
             .then((response) => response.json())
             .then((userInfo) => {
-                //console.log(categories);
+                console.log(userInfo);
+                localStorage.setItem('currentUserInfo', JSON.stringify(userInfo));
                 setCurrentUserInfo(userInfo);
             })
             .catch((err) => {
