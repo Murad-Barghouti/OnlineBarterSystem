@@ -10,6 +10,8 @@
 }
 
 .overlay {
+    overflow-x:hidden;
+    overflow-y:scroll;
     background-color: #0A0F0D;
     position: fixed;
     top: 0;
@@ -22,7 +24,7 @@
     margin: 0 auto;
     margin-top: 40px;
     margin-bottom: 40px;
-    width: 26%;
+    width: 33%;
 }
 
 .heading {
@@ -53,6 +55,11 @@
     border: 1px solid #888;
     border-radius: 6px;
     opacity: 0.9;
+}
+
+.addBarterForm p{
+    margin-bottom:15px;
+    font-weight:600;
 }
 
 .addBarterForm input {

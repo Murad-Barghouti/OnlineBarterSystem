@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./MyBarters.module.css";
 import { NavLink } from "react-router-dom";
 import { MdEdit, MdDelete } from "react-icons/md";
@@ -9,12 +9,29 @@ import Profile from "../../components/Profile/Profile";
 
 const MyBarters = () => {
 
-    const myBarters = [
+    /*const myBarters = [
         { id: 1, wantToTrade: "levis jeans", wantInReturn: "600TL"  },
         { id: 2, wantToTrade: "gold equipment", wantInReturn: "signed sports jersey" } ,
         { id: 3, wantToTrade: "Cooked meal prep", wantInReturn: "copywriting"  },
 
-    ]
+    ]*/
+
+    const [currentUserInfo, setCurrentUserInfo] = useState({});
+    const [myBarters, setMyBarters] = useState([]);
+    const baseURL = "https://localhost:7073/api";
+
+    useEffect(() => {
+        var currentUsername = localStorage.getItem('currentUsername');
+        fetch(baseURL + "/Category")
+            .then((response) => response.json())
+            .then((userInfo) => {
+                //console.log(categories);
+                setCurrentUserInfo(userInfo);
+            })
+            .catch((err) => {
+                console.log(err.message);
+            });
+    }, []);
 
     return (
         <div className={styles.container}>
