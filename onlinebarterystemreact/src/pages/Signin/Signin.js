@@ -1,17 +1,20 @@
 import React, { useState } from "react";
 import styles from "./Signin.module.css";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { MdError } from "react-icons/md";
 import logo from "../../assets/obslogo.png";
 
 const Signin = () => {
     const [formState, setFormState] = useState({
-           email: "",
+           userName: "",
         password: "",
     });
+    const navigate = useNavigate();
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
     const [success, setSuccess] = useState(false);
+
+    const baseURL = "https://localhost:7073/api";
 
     const handleChange = (e) => {
         setFormState({
@@ -25,9 +28,26 @@ const Signin = () => {
         setError("");
         e.preventDefault();
 
-        if (!formState.email || !formState.password ) {
+        if (!formState.userName || !formState.password) {
             setError("All of the fields are required");
             setLoading(false);
+        } else {
+            //console.log(formState);
+            //console.log(JSON.stringify(formState));
+            const requestOptions = {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formState)
+            };
+            console.log(requestOptions);
+            fetch(baseURL + "/Account/signin", requestOptions)
+                .then(response => response.json())
+                .then(data => console.log(data))
+                .catch((err) => {
+                    console.log(err.message);
+                    localStorage.setItem('currentUsername', formState.userName);
+                    navigate("/profile/mybarters");
+                });
         }
     };
 
@@ -48,11 +68,11 @@ const Signin = () => {
                     >
                         <form className={styles.signinForm}>
                             <input
-                                type="email"
-                                placeholder="Email"
-                                id="email"
-                                name="email"
-                                value={formState.email}
+                                type="text"
+                                placeholder="Username"
+                                id="userName"
+                                name="userName"
+                                value={formState.userName}
                                 onChange={(e) => handleChange(e)}
                             />
                             <input
@@ -71,7 +91,7 @@ const Signin = () => {
                                 </div>
                             )}
                             <button className={styles.signinBtn} type="submit">
-                                SIGN UP
+                                SIGN IN
                             </button>
                         </form>
                         <p className={styles.signupMsg}>
