@@ -60,10 +60,22 @@ const Signup = () => {
             const requestOptions = {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(formState)
+                body: JSON.stringify(
+                    formState
+                    // {
+                    //     firstName: formState.firstName,
+                    //     lastName: formState.lastName,
+                    //     userName: formState.userName,
+                    //     email: formState.email,
+                    //     password: formState.password,
+                    //     confirmPassword: formState.confirmPassword,
+                    //     phoneNumber: formState.phoneNumber,
+                    //     cityId: parseInt(formState.cityId)
+                    // }
+                    )
             };
             console.log(requestOptions);
-            fetch(baseURL+"/signup", requestOptions)
+            fetch(baseURL+"Account/signup", requestOptions)
                 .then(response => response.json())
                 .then(data => console.log(data))
                 .catch((err) => {

@@ -58,7 +58,7 @@ const Search = () => {
      }, []);
 
     const handleChange = (e) => {
-        if(e.target.name =="category"){
+        if(e.target.name =="categoryId"){
             let category = categories.find(val => val.id == e.target.value);
             setSubCategories(category.subCategories);
         }
@@ -74,13 +74,36 @@ const Search = () => {
         setError("");
         e.preventDefault();
 
-        if (formState.searchTerm==="" && formState.category === "" && formState.subcategory === "" && formState.cityId === "") {
+        if (formState.searchTerm==="" && formState.categoryId === "" && formState.subcategoryId === "" && formState.cityId === "") {
             setError("Fill atleast one of the fields above.");
             setLoading(false);
         }
     };
 
+    const handleClickSearch = async () => {
+    
+        try {
+          const response = await fetch(baseURL+"/Barter/bartersInCity/"+formState.cityId, {
+            method: 'GET',
+            headers: {
+              Accept: 'application/json',
+            },
+          });
+    
+          if (!response.ok) {
+            throw new Error(`Error! status: ${response.status}`);
+          }
+    
+          const result = await response.json();
+    
+          setAllBarters(result);
 
+        } catch (err) {
+          console.log(err.message);
+        } finally {
+        }
+      };
+    
     const searchResults = [
         { username: "jane doe", barter: { wantToTrade: "levis jeans", wantInReturn: "600TL" } },
         { username: "sara lane", barter: { wantToTrade: "gold equipment", wantInReturn: "signed sports jersey" } },
@@ -106,10 +129,9 @@ const Search = () => {
                                 onChange={(e) => handleChange(e)}
                             />
                             <select
-                                defaultValue=""
-                                id="category"
-                                name="category"
-                                //value={formState.categoryId}
+                            id="categoryId"
+                                name="categoryId"
+                                value={formState.categoryId}
                                 onChange={(e) => handleChange(e)}
                                 style={{ textTransform: 'capitalize' }}
                             >
@@ -121,10 +143,9 @@ const Search = () => {
                                 }
                             </select>
                             <select
-                                defaultValue=""
-                                id="subcategory"
-                                name="subcategory"
-                                //value={formState.subCategoryId}
+                                id="subCategoryId"
+                                name="subCategoryId"
+                                value={formState.subCategoryId}
                                 onChange={(e) => handleChange(e)}
                                 style={{ textTransform: 'capitalize' }}
                             >
@@ -141,9 +162,9 @@ const Search = () => {
                             </select>
                             
                             <select
-                                defaultValue=""
                                 id="cityId"
                                 name="cityId"
+                                value={formState.cityId}
                                 onChange={(e) => handleChange(e)}
                                 style={{ textTransform: 'capitalize' }}
                             >
@@ -155,7 +176,7 @@ const Search = () => {
                                 }
 
                             </select>
-                            <button className={styles.headerItem} type="submit"><FaSearch style={{ fontSize: 25, position: 'relative', bottom:7, opacity: 0.8 }} /></button>
+                            <button className={styles.headerItem} type="submit"><FaSearch onClick={handleClickSearch} style={{ fontSize: 25, position: 'relative', bottom:7, opacity: 0.8 }} /></button>
 
                         </form>
                         {error && (
