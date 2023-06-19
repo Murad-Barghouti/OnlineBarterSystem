@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styles from "./MyBarters.module.css";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { MdEdit, MdDelete } from "react-icons/md";
 import { HiPlus } from 'react-icons/hi';
 import arrows from "../../assets/arrows.jpg";
@@ -16,22 +16,25 @@ const MyBarters = () => {
 
     ]*/
 
-    const [currentUserInfo, setCurrentUserInfo] = useState({});
     const [myBarters, setMyBarters] = useState([]);
     const baseURL = "https://localhost:7073/api";
+    const navigate = useNavigate();
 
     useEffect(() => {
         var currentUsername = localStorage.getItem('currentUsername');
-        fetch(baseURL + "/Account/" + currentUsername)
-            .then((response) => response.json())
-            .then((userInfo) => {
-                console.log(userInfo);
-                localStorage.setItem('currentUserInfo', JSON.stringify(userInfo));
-                setCurrentUserInfo(userInfo);
-            })
-            .catch((err) => {
-                console.log(err.message);
-            });
+        if (currentUsername === '') {
+            navigate("/signin")
+        } else {
+            fetch(baseURL + "/Account/" + currentUsername)
+                .then((response) => response.json())
+                .then((userInfo) => {
+                    console.log(userInfo);
+                    localStorage.setItem('currentUserInfo', JSON.stringify(userInfo));
+                })
+                .catch((err) => {
+                    console.log(err.message);
+                });
+        }
     }, []);
 
     return (

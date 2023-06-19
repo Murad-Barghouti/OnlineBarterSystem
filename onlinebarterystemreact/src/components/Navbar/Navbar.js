@@ -5,7 +5,8 @@ import { FaUserCircle, FaSearch } from "react-icons/fa";
 import logo from "../../assets/obslogo.png";
 
 const Navbar = () => {
-    
+
+    const [currentUserInfo, setCurrentUserInfo] = useState(JSON.parse(localStorage.getItem('currentUserInfo')));
 
     return (
             <div className={styles.header}>
@@ -25,7 +26,7 @@ const Navbar = () => {
                         <span style={{ padding: 10, fontSize: 27, position: 'relative', top: 7 }}>
                             <FaUserCircle />
                         </span>
-                        john doe
+                        {currentUserInfo.firstName} {currentUserInfo.lastName}
                     </span>
                 </NavLink>
                 </div>
