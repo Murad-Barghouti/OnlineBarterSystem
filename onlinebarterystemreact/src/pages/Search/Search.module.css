@@ -1,0 +1,126 @@
+.container {
+    margin: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow-y: scroll;
+}
+
+.main {
+    margin: 20px auto;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    width: 70%;
+    background: #fff;
+    padding: 20px;
+}
+
+
+.formContainer {
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+}
+
+.searchForm {
+    display:flex;
+    gap:20px;
+}
+
+.searchForm button{
+    background: #fff;
+}
+
+.searchForm select {
+    margin-bottom: 20px;
+    font-size: 16px;
+    padding: 12px;
+    border: 1px solid #888;
+    border-radius: 6px;
+    opacity: 0.9;
+}
+
+.searchForm input {
+    margin-bottom: 20px;
+    font-size: 16px;
+    padding: 12px;
+    border: 1px solid #888;
+    border-radius: 6px;
+    opacity: 0.9;
+}
+
+
+.error {
+    color: #c91414;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+
+.item {
+    display: flex;
+    align-items: center;
+    height: 120px;
+    padding: 0 40px;
+    border: 1px solid #0A0F0D;
+    margin-bottom:20px;
+}
+
+    .item .userInfo {
+        font-style: italic;
+        font-size: 14px;
+        opacity: 0.8;
+        margin-bottom: px;
+    }
+
+    .item .details {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+    }
+
+        .item .details p {
+            text-transform: capitalize;
+        }
+
+        .item .details b {
+            text-transform: none;
+        }
+
+    .item .userInfo .fullname {
+        text-transform: capitalize;
+    }
+
+    .searchResultsHeading{
+        text-align:center;
+        opacity:0.8;
+        font-style:italic;
+        text-transform:uppercase;
+        font-weight:700;
+        font-size:20px;
+        margin: 20px;
+    }
+
+
+.item .buttons {
+    text-align: right;
+    margin-left: auto;
+}
+
+    .item .buttons button {
+        border-radius: 7px;
+        padding: 8px 10px;
+        color: #fff;
+        font-weight: 700;
+        background: #2A1E5C;
+    }

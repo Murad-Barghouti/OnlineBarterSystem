@@ -20,6 +20,7 @@
     <Folder Include="src\pages\BarterRequests\" />
     <Folder Include="src\pages\EditBarter\" />
     <Folder Include="src\pages\AccountInfo\" />
+    <Folder Include="src\pages\Search\" />
     <Folder Include="src\pages\ParticipatingBarters\" />
     <Folder Include="src\pages\Signin\" />
   </ItemGroup>

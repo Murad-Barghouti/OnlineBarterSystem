@@ -14,7 +14,6 @@ const EditBarter = () => {
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
     const [success, setSuccess] = useState(false);
-    const [selectedCategory, setSelectedCategory] = useState('');
 
 
 

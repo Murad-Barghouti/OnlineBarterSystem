@@ -5,3 +5,7 @@ export const  categoryList = [
     { category: "currencies", subcategories: ["turkish lira", "USD", "euro", "other"] },
     { category: "donation", subcategories: [] },
 ];
+
+export const cities = [
+    "ankara", "istanbul", "fethiye", "antalya", "adana", "izmir", "bursa"
+]

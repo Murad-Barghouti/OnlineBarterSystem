@@ -9,6 +9,7 @@ import MyBarters from './pages/MyBarters/MyBarters';
 import AddABarter from './pages/AddABarter/AddABarters';
 import BarterRequests from './pages/BarterRequests/BarterRequests';
 import EditBarter from './pages/EditBarter/EditBarter';
+import Search from './pages/Search/Search';
 
 export default class App extends Component {
     static displayName = App.name;
@@ -59,6 +60,7 @@ export default class App extends Component {
                         <Route exact path='/profile/participatingbarters' element={<ParticipationgBarters />} />
                         <Route exact path='/profile/mybarters' element={<MyBarters />} />
                         <Route exact path='/profile/requests' element={<BarterRequests />} />
+                        <Route exact path='/search' element={<Search />} />
                     </Routes>
                 </Router>
             </div>

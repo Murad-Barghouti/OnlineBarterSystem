@@ -3,6 +3,7 @@ import styles from "./Signup.module.css";
 import { NavLink } from "react-router-dom";
 import { MdError } from "react-icons/md";
 import logo from "../../assets/obslogo.png";
+import { cities } from "../../data";
 
 const Signup = () => {
     const [formState, setFormState] = useState({
@@ -82,16 +83,20 @@ const Signup = () => {
                                 value={formState.password}
                                 onChange={(e) => handleChange(e)}
                             />
-                            <select id="city" name="city" onChange={(e) => handleChange(e)}>
+                            <select
+                                id="city"
+                                name="city"
+                                value={formState.city}
+                                onChange={(e) => handleChange(e)}
+                                style={{ textTransform: 'capitalize' }}
+                            >
                                 <option value="" disabled selected >Select your city location</option>
-                                <option value="ankara">Ankara</option>
-                                <option value="istanbul">Istanbul</option>
-                                <option value="izmir">Izmir</option>
-                                <option value="antalya">Antalya</option>
-                                <option value="adana">Adana</option>
-                                <option value="bursa">Bursa</option>
-                                <option value="fethiye">Fethiye</option>
-                                <option value="trabzon">Trabzon</option>
+                                {
+                                    cities.map((item) => {
+                                        return <><option value={item} style={{ textTransform: 'capitalize' }}>{item}</option></>;
+                                    })
+                                }
+                                
                             </select>
                             
                             {error && (

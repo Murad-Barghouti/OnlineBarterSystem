@@ -22,6 +22,7 @@
     font-size: 18px;
     font-weight: 700;
     color: #2A1E5C;
+    text-transform:capitalize;
 }
 
     .headerItem:hover {
