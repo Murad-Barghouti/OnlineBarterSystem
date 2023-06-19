@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import styles from "./BarterRequests.module.css";
 import { NavLink } from "react-router-dom";
-import { MdLocationOn, MdEdit } from "react-icons/md";
 import { FaUserCircle } from "react-icons/fa";
 import { IoIosCloseCircle, IoIosCheckmarkCircle } from 'react-icons/io';
 import arrows from "../../assets/arrows.jpg";

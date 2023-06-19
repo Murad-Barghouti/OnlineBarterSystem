@@ -25,40 +25,6 @@
     background: #fff;
 }
 
-.profile {
-    border: 1px solid #0A0F0D;
-    padding: 30px;
-    display: flex;
-    align-items: center;
-}
-
-.profilepic {
-    width: 100px;
-    margin-right: 30px
-}
-
-.profileInfo {
-    color: #0A0F0D;
-    line-height: 25px;
-}
-
-    .profileInfo .fullname {
-        font-size: 20px;
-        text-transform: capitalize;
-        font-weight: 700;
-        padding-left: 5px;
-    }
-
-    .profileInfo .email {
-        font-style: italic;
-        padding-left: 5px;
-    }
-
-    .profileInfo .city {
-        text-transform: capitalize;
-        font-weight: 500
-    }
-
 .tabBar {
     display: flex;
     height: 70px;
