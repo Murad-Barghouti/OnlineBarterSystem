@@ -7,9 +7,8 @@ using System.Threading.Tasks;
 
 namespace OnlineBarterSystemDAL.Interfaces
 {
-    public interface ICityRepository
+    public interface ICategoryRepository
     {
-        Task<City> GetCityByIdAsync(long id);
-        Task<List<City>> GetAllCitiesAsync();
+        Task<List<Category>> GetCategories();
     }
 }

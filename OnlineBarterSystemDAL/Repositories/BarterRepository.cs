@@ -89,6 +89,19 @@ namespace OnlineBarterSystemDAL.Repositories
             return barter;
         }
 
+        public async Task<List<Barter>> GetBartersInCityAsync(long cityId)
+        {
+            var city = await _onlineBarterSystemContext.Cities.FirstOrDefaultAsync(c => c.Id == cityId);
+            if (city == null)
+            {
+                return null;
+            }
+            var barters = await _onlineBarterSystemContext.Barters.Include(b => b.Initiator).ThenInclude(u => u.City).Include(b => b.Joiner).Include(b => b.BarterState)
+                .Include(b => b.GiveType).ThenInclude(gt => gt.Category).Include(b => b.ReceiveType).ThenInclude(rt => rt.Category)
+                .Where(b => b.Initiator.CityId == cityId).ToListAsync();
+            return barters;
+        }
+
         public async Task<List<Barter>> GetUserBartersAsync(long id)
         {
             return await _onlineBarterSystemContext.Barters.Where(b => b.InitiatorId == id).Include(b => b.Initiator)

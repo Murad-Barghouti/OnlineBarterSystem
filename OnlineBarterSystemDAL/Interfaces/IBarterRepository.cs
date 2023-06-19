@@ -21,5 +21,6 @@ namespace OnlineBarterSystemDAL.Interfaces
         Task<Barter> LeaveBarterAsync(long id);
         Task<Barter> RejectBarterAsync(long id);
         Task<Barter> ApproveBarterAsync(long id);
+        Task<List<Barter>> GetBartersInCityAsync(long cityId);
     }
 }

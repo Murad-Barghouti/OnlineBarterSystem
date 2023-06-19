@@ -9,23 +9,18 @@ using System.Threading.Tasks;
 
 namespace OnlineBarterSystemDAL.Repositories
 {
-    public class CityRepository : ICityRepository
+    public class CategoryRepository : ICategoryRepository
     {
         private readonly OnlineBarterSystemContext _onlineBarterSystemContext;
 
-        public CityRepository(OnlineBarterSystemContext onlineBarterSystemContext)
+        public CategoryRepository(OnlineBarterSystemContext onlineBarterSystemContext)
         {
             _onlineBarterSystemContext = onlineBarterSystemContext;
         }
-
-        public async Task<List<City>> GetAllCitiesAsync()
+        public async Task<List<Category>> GetCategories()
         {
-            return await _onlineBarterSystemContext.Cities.ToListAsync();
-        }
-
-        public async Task<City> GetCityByIdAsync(long id)
-        {
-            return await _onlineBarterSystemContext.Cities.FirstOrDefaultAsync(c => c.Id == id);
+            var categories = await _onlineBarterSystemContext.Categories.Include(c => c.SubCategories).ToListAsync();
+            return categories;
         }
     }
 }

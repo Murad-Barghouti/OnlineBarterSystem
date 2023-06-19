@@ -57,6 +57,20 @@ namespace OnlineBarterSystemWS.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
+        [HttpPost("signin")]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        public async Task<IActionResult> SignIn([FromBody] SignInRequest signInRequest)
+        {
+            try
+            {
+                return Ok();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
 
         [HttpGet("{userName}")]
         [ProducesResponseType((int)HttpStatusCode.OK)]

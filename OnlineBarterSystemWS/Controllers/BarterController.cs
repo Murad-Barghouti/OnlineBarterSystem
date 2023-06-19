@@ -19,15 +19,17 @@ namespace OnlineBarterSystemWS.Controllers
         private readonly IBarterRepository _barterRepository;
         private readonly ISubCategoryRepository _subCategoryRepository;
         private readonly IAccountRepository _accountRepository;
+        private readonly ICityRepository _cityRepository;
 
         public BarterController(IRequestMapper requestMapper, IResponseMapper responseMapper, IBarterRepository barterRepository,
-            ISubCategoryRepository subCategoryRepository, IAccountRepository accountRepository)
+            ISubCategoryRepository subCategoryRepository, IAccountRepository accountRepository, ICityRepository cityRepository)
         {
             _requestMapper = requestMapper;
             _responseMapper = responseMapper;
             _barterRepository = barterRepository;
             _subCategoryRepository = subCategoryRepository;
             _accountRepository = accountRepository;
+            _cityRepository = cityRepository;
         }
 
         [HttpPost]
@@ -96,6 +98,31 @@ namespace OnlineBarterSystemWS.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
+
+        [HttpGet("bartersInCity/{id:int}")]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+        public async Task<ActionResult<IEnumerable<BarterResponse>>> GetBartersInCity(long id)
+        {
+            try
+            {
+                var city = await _cityRepository.GetCityByIdAsync(id);
+                if (city == null)
+                {
+                    return BadRequest("City not found");
+                }
+                var barters = await _barterRepository.GetBartersInCityAsync(id);
+                var bartersResponse = _responseMapper.Map<Barter, BarterResponse>(barters);
+                return Ok(bartersResponse);
+            }
+            catch (Exception ex)
+            {
+
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
         [HttpGet("{id:int}")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.NoContent)]
