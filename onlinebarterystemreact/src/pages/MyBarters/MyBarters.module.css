@@ -87,17 +87,17 @@
     border: 1px solid #0A0F0D;
 }
 
-.addBarter button{
-    display:flex;
-    align-items:center;
-    margin:auto;
-    color: #fff;
-    padding: 25px;
-    text-transform: uppercase;
-    font-weight:700;
-    font-size:16px;
-    background:#0A0F0D;
-}
+    .addBarter button {
+        display: flex;
+        align-items: center;
+        margin: auto;
+        color: #fff;
+        padding: 25px;
+        text-transform: uppercase;
+        font-weight: 700;
+        font-size: 16px;
+        background: #0A0F0D;
+    }
 
 .item {
     display: flex;
@@ -107,10 +107,16 @@
     border: 1px solid #0A0F0D;
 }
 
-        .item .details {
+    .item .details, .item .description {
         display: flex;
         align-items: center;
         gap: 20px;
+    }
+
+    .item .description{
+        margin-top:10px;
+        opacity:0.8;
+        font-style:italic
     }
 
         .item .details p {

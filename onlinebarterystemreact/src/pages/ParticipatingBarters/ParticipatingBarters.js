@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./ParticipatingBarters.module.css";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { FaUserCircle } from "react-icons/fa";
 import arrows from "../../assets/arrows.jpg";
 import Navbar from "../../components/Navbar/Navbar";
@@ -8,11 +8,54 @@ import Profile from "../../components/Profile/Profile";
 
 const ParticipatingBarters = () => {
 
-    const participatingBarters = [
-        { username: "jane doe", barter: { wantToTrade: "levis jeans", wantInReturn: "600TL" } },
-        { username: "sara lane", barter: { wantToTrade: "gold equipment", wantInReturn: "signed sports jersey" } },
-        { username: "matt damon", barter: { wantToTrade: "Cooked meal prep", wantInReturn: "copywriting" } },
-    ]
+    const [participatingBarters, setParticipatingBarters] = useState([]);
+    const [currentUserInfo, setCurrentUserInfo] = useState(JSON.parse(localStorage.getItem('currentUserInfo')));
+    const baseURL = "https://localhost:7073/api";
+    const navigate = useNavigate();
+
+    async function fetchParticipatingBarters() {
+        try {
+            const response = await fetch(baseURL + "/Barter");
+            const barters = await response.json();
+            console.log(barters);
+            setParticipatingBarters(barters);
+        } catch (err) {
+            console.log(err.message);
+        }
+    }
+
+    const handleCancel = async (barterId) => {
+        try {
+            const response = await fetch(baseURL + "/Barter/leaveBarter/" + barterId, {
+                method: "GET",
+                headers: {
+                    Accept: "application/json",
+                },
+            });
+
+            if (!response.ok) {
+                throw new Error(
+                    `Error! status: ${response.status} message ${response.message}`
+                );
+            }
+
+            const result = await response.json();
+
+            fetchParticipatingBarters();
+        } catch (err) {
+            console.log(err.message);
+        } finally {
+        }
+    }
+
+    useEffect(() => {
+        var currentUsername = localStorage.getItem('currentUsername');
+        if (currentUsername === '') {
+            navigate("/signin")
+        } else {
+            fetchParticipatingBarters();               
+        }
+    },[]);
 
     return (
         <div className={styles.container}>
@@ -26,24 +69,29 @@ const ParticipatingBarters = () => {
                         <NavLink to="/profile/requests">barter requests</NavLink>
                     </div>
                     <div className={styles.list}>
-                        {participatingBarters.map((item) => {
-                            const { username, barter } = item;
+                        {participatingBarters
+                            .filter(item => (item.joinerId === currentUserInfo.id) && item.barterState.name === "Pending Approval")
+                            .map((item) => {
+                            const { id, receiveType, giveType, description, initiator} = item;
                             return (
-                                <div className={styles.item}>
+                                <div key={id} className={styles.item}>
                                     <div className={styles.infoContainer}>
                                         <div className={styles.info}>
                                             <div className={styles.userInfo}>
-                                                Posted by <FaUserCircle style={{ fontSize: 20, position: 'relative', top: 4 }} /> <b className={styles.fullname}>{username}</b>
+                                                Posted by <FaUserCircle style={{ fontSize: 20, position: 'relative', top: 4 }} /> <b className={styles.fullname}>{initiator.firstName} {initiator.lastName}</b>
                                             </div>
                                             <div className={styles.details}>
-                                                <p><b>Want to trade: </b> {barter.wantToTrade}</p>
+                                                <p><b>Want to trade: </b> {giveType.name}</p>
                                                 <img className={styles.arrows} src={arrows} alt="arrows" />
-                                                <p><b>For: </b> {barter.wantInReturn}</p>
+                                                <p><b>For: </b> {receiveType.name}</p>
+                                            </div>
+                                            <div className={styles.description}>
+                                                <p><b>Description: </b> {description}</p>
                                             </div>
                                         </div>
                                     </div>
                                     <div className={styles.buttons}>
-                                        <button>CANCEL</button>
+                                        <button onClick={(e)=>handleCancel(id)}>CANCEL</button>
                                     </div>
                                 </div>
                             );

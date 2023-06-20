@@ -90,6 +90,12 @@
     font-weight: 500;
 }
 
+.success {
+    color: #2d9423;
+    font-size: 13px;
+    font-weight: 500;
+}
+
 /* For Tablets */
 @media only screen and (max-width: 1024px) {
 }

@@ -5,7 +5,6 @@ import { MdError } from "react-icons/md";
 import { FaSearch, FaUserCircle } from "react-icons/fa";
 import arrows from "../../assets/arrows.jpg";
 import Navbar from "../../components/Navbar/Navbar";
-import { cities, categoryList } from "../../data";
 
 const Search = () => {
   const [cities, setCityState] = useState([]);

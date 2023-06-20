@@ -65,12 +65,18 @@
         margin-bottom: px;
     }
 
-    .item .details {
+
+    .item .details, .item .description {
         display: flex;
         align-items: center;
         gap: 20px;
     }
 
+    .item .description {
+        margin-top: 5px;
+        opacity: 0.8;
+        font-style: italic
+    }
         .item .details p {
             text-transform: capitalize;
         }

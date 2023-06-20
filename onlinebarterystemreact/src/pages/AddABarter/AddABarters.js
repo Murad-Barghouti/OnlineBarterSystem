@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styles from "./AddABarter.module.css";
-import { MdError } from "react-icons/md";
+import { MdError, MdCheckCircle } from "react-icons/md";
 import Navbar from "../../components/Navbar/Navbar";
 
 const AddABarter = () => {
@@ -42,6 +42,7 @@ const AddABarter = () => {
     const handleSubmit = (e) => {
         setLoading(true);
         setError("");
+        setSuccess("");
         e.preventDefault();
 
         if (!formState.description || formState.receiveType === 0 || formState.giveType === 0 || formState.receiveTypeId === 0 || !formState.giveTypeId === 0) {
@@ -54,7 +55,7 @@ const AddABarter = () => {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    initiatorId: 1,
+                    initiatorId: JSON.parse(localStorage.getItem('currentUserInfo')).id,
                     receiveTypeId: parseInt(formState.receiveTypeId),
                     giveTypeId: parseInt(formState.giveTypeId),
                     description: formState.description,
@@ -65,9 +66,20 @@ const AddABarter = () => {
             console.log(requestOptions);
             fetch(baseURL + "/Barter", requestOptions)
                 .then(response => response.json())
-                .then(data => console.log(data))
+                .then(data => {
+                    console.log(data);
+                    setFormState({
+                        giveType: 0,
+                        receiveType: 0,
+                        giveTypeId: 0,
+                        receiveTypeId: 0,
+                        description: "",
+                    })
+                    setSuccess("Barter added!")
+                })
                 .catch((err) => {
                     console.log(err.message);
+                    setError("server error");
                 });
         }
     };
@@ -103,7 +115,7 @@ const AddABarter = () => {
                                 <option value={0} disabled selected >Select the category</option>
                                 {
                                     categoryList.map((item) => {
-                                        return <><option value={item.id} style={{ textTransform: 'capitalize' }}>{item.name}</option></>;
+                                        return <option key={item.id} value={item.id} style={{ textTransform: 'capitalize' }}>{item.name}</option>;
                                     })
                                 }
                             </select>
@@ -118,7 +130,7 @@ const AddABarter = () => {
                                 {
                                     formState.giveType !== 0 &&
                                     categoryList.filter(obj => { return ("" + obj.id) === formState.giveType })[0].subCategories.map((item) => {
-                                        return <option value={item.id} style={{ textTransform: 'capitalize' }}>{item.name}</option>;
+                                        return <option key={item.id} value={item.id} style={{ textTransform: 'capitalize' }}>{item.name}</option>;
                                     })}
                                   
                                 
@@ -135,7 +147,7 @@ const AddABarter = () => {
                                 <option value={0} disabled selected >Select the category</option>
                                 {
                                     categoryList.map((item) => {
-                                        return <><option value={item.id} style={{ textTransform: 'capitalize' }}>{item.name}</option></>;
+                                        return <><option key={item.id}  value={item.id} style={{ textTransform: 'capitalize' }}>{item.name}</option></>;
                                     })
                                 }
                             </select>
@@ -151,7 +163,7 @@ const AddABarter = () => {
                                     formState.receiveType !== 0 &&
                                     
                                     categoryList.filter(obj => { return ("" + obj.id) === formState.receiveType })[0].subCategories.map((item) => {
-                                        return <option value={item.id} style={{ textTransform: 'capitalize' }}>{item.name}</option>;
+                                        return <option key={item.id}  value={item.id} style={{ textTransform: 'capitalize' }}>{item.name}</option>;
                                     })
                                 }
                             </select>
@@ -159,6 +171,12 @@ const AddABarter = () => {
                             {error && (
                                 <div className={styles.error}>
                                     <MdError /> <span>{error}</span>
+                                </div>
+                            )}
+
+                            {success && (
+                                <div className={styles.success}>
+                                    <MdCheckCircle /> <span>{success}</span>
                                 </div>
                             )}
                            

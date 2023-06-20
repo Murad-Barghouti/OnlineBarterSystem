@@ -7,34 +7,42 @@ import arrows from "../../assets/arrows.jpg";
 import Navbar from "../../components/Navbar/Navbar";
 import Profile from "../../components/Profile/Profile";
 
-const MyBarters = () => {
-
-    /*const myBarters = [
-        { id: 1, wantToTrade: "levis jeans", wantInReturn: "600TL"  },
-        { id: 2, wantToTrade: "gold equipment", wantInReturn: "signed sports jersey" } ,
-        { id: 3, wantToTrade: "Cooked meal prep", wantInReturn: "copywriting"  },
-
-    ]*/
-
+const MyBarters = () => {    
     const [myBarters, setMyBarters] = useState([]);
+    const [currentUserInfo, setCurrentUserInfo] = useState({});
     const baseURL = "https://localhost:7073/api";
     const navigate = useNavigate();
+
+
+    async function fetchMyBarters() {
+        
+        try {
+            const response2 = await fetch(baseURL + "/Barter");
+            const barters = await response2.json();
+
+            setMyBarters(barters);  
+        } catch (err){
+            console.log(err.message);
+        }
+    }
 
     useEffect(() => {
         var currentUsername = localStorage.getItem('currentUsername');
         if (currentUsername === '') {
             navigate("/signin")
-        } else {
-            fetch(baseURL + "/Account/" + currentUsername)
-                .then((response) => response.json())
-                .then((userInfo) => {
-                    console.log(userInfo);
-                    localStorage.setItem('currentUserInfo', JSON.stringify(userInfo));
-                })
-                .catch((err) => {
-                    console.log(err.message);
-                });
         }
+        fetch(baseURL + "/Account/" + currentUsername)
+            .then((response) => response.json())
+            .then((userInfo) => {
+                console.log(userInfo);
+                localStorage.setItem('currentUserInfo', JSON.stringify(userInfo));
+                setCurrentUserInfo(userInfo);
+                fetchMyBarters();
+            })
+            .catch((err) => {
+                console.log(err.message);
+            });     
+
     }, []);
 
     return (
@@ -58,16 +66,22 @@ const MyBarters = () => {
                                 </button>
                             </NavLink>
                         </div>
-                        {myBarters.map((item) => {
-                            const { id, wantInReturn, wantToTrade } = item;
-                            return (
-                                <div className={styles.item}>
+                        {
+                            myBarters
+                            .filter(item => item.initiatorId === currentUserInfo.id)
+                            .map((item) => {
+                            const { id, receiveType ,giveType, description } = item;
+                        return (
+                            <div key={id} className={styles.item} key={id}>
                                     <div className={styles.infoContainer}>
                                         <div className={styles.info}>
                                             <div className={styles.details}>
-                                                <p><b>Want to trade: </b> {wantToTrade}</p>
+                                                <p><b>Want to trade: </b> {giveType.name}</p>
                                                 <img className={styles.arrows} src={arrows} alt="arrows" />
-                                                <p><b>For: </b> {wantInReturn}</p>
+                                                <p><b>For: </b> {receiveType.name}</p>
+                                        </div>
+                                        <div className={styles.description}>
+                                            <p><b>Description: </b> {description}</p>
                                             </div>
                                         </div>
                                     </div>
