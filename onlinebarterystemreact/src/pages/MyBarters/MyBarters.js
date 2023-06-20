@@ -72,7 +72,7 @@ const MyBarters = () => {
                             .map((item) => {
                             const { id, receiveType ,giveType, description } = item;
                         return (
-                            <div key={id} className={styles.item} key={id}>
+                        <div className={styles.item} key={id}>
                                     <div className={styles.infoContainer}>
                                         <div className={styles.info}>
                                             <div className={styles.details}>
