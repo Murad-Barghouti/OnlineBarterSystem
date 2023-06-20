@@ -331,7 +331,7 @@ const Search = () => {
                     </div>
                     {item.initiatorId != user.id &&
                       item.joinerId != user.id &&
-                      item.joinerId == null && (
+                      item.joinerId == null && (item?.barterState.name !="Successful") && (
                         <div className={styles.buttons}>
                           <button
                             onClick={(e) => handleClickJoinBarter(item.id)}
@@ -340,12 +340,19 @@ const Search = () => {
                           </button>
                         </div>
                       )}
-                    {item.joinerId == user.id && (
+                    {item.joinerId == user.id && (item?.barterState.name !="Successful") && (
                       <div className={styles.buttons}>
                         <button
                           onClick={(e) => handleClickLeaveBarter(item.id)}
                         >
                           Leave Barter
+                        </button>
+                      </div>
+                    )}
+                     {item?.barterState.name =="Successful" && (
+                      <div className={styles.buttons}>
+                        <button>
+                          Successful Barter!!
                         </button>
                       </div>
                     )}
