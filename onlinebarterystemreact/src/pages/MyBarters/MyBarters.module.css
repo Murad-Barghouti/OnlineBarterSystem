@@ -136,3 +136,8 @@
         margin-left: auto;
         color: #0A0F0D
     }
+
+
+        .item .buttons *:hover {
+            opacity: 0.8
+        }

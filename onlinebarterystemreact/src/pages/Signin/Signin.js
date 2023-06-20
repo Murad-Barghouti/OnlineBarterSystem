@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./Signin.module.css";
 import { NavLink, useNavigate } from "react-router-dom";
 import { MdError } from "react-icons/md";
@@ -44,7 +44,14 @@ const Signin = () => {
                 .then(data => {
                     console.log(data);
                     localStorage.setItem('currentUsername', formState.userName);
-                    navigate("/profile/mybarters");
+                    
+                    fetch(baseURL + "/Account/" + formState.userName)
+                        .then((response) => response.json())
+                        .then((userInfo) => {
+                            console.log(userInfo);
+                            localStorage.setItem('currentUserInfo', JSON.stringify(userInfo));
+                            navigate("/profile/mybarters");
+                        })
                 })
                 .catch((err) => {
                     console.log(err.message);                   

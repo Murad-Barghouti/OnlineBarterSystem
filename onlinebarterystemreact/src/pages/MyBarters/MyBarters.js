@@ -26,11 +26,42 @@ const MyBarters = () => {
         }
     }
 
+    const handleEdit = (barter) => {
+        localStorage.setItem('editBarter', JSON.stringify(barter));
+        navigate("/editbarter/"+barter.id)        
+    }
+
+    const handleDelete = async (barterId) => {
+        try {
+            const response = await fetch(baseURL + "/Barter/" + barterId, {
+                method: "DELETE",
+                headers: {
+                    Accept: "application/json",
+                },
+            });
+
+            if (!response.ok) {
+                throw new Error(
+                    `Error! status: ${response.status} message ${response.message}`
+                );
+            }
+
+            const result = await response.json();
+
+            fetchMyBarters();
+        } catch (err) {
+            console.log(err.message);
+        } finally {
+        }
+    }
+
     useEffect(() => {
         var currentUsername = localStorage.getItem('currentUsername');
         if (currentUsername === '') {
             navigate("/signin")
         }
+
+
         fetch(baseURL + "/Account/" + currentUsername)
             .then((response) => response.json())
             .then((userInfo) => {
@@ -86,8 +117,8 @@ const MyBarters = () => {
                                         </div>
                                     </div>
                                     <div className={styles.buttons}>
-                                        <NavLink to={"/editbarter/"+id}><MdEdit style={{ fontSize: 28, color: '#0A0F0D' }} /></NavLink>
-                                        <MdDelete style={{ fontSize: 28, marginLeft: 15 }} />
+                                    <MdEdit style={{ fontSize: 28, color: '#0A0F0D' }} onClick={(e) => handleEdit(item)} />
+                                    <MdDelete style={{ fontSize: 28, marginLeft: 15, cursor: 'pointer' }} onClick={(e)=>handleDelete(id)} />
                                     </div>
                                 </div>
                             );

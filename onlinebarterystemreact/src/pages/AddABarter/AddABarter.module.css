@@ -104,10 +104,9 @@
 @media only screen and (max-width: 600px) {
 }
 
-
 .circle1 {
-    height: 500px;
-    width: 500px;
+    height: 400px;
+    width: 400px;
     opacity: 0.5;
     background: #f33d62;
     position: absolute;
@@ -117,8 +116,8 @@
 }
 
 .circle2 {
-    height: 300px;
-    width: 300px;
+    height: 200px;
+    width: 200px;
     opacity: 0.7;
     background: none;
     border: 10px solid #2A1E5C;
@@ -129,12 +128,12 @@
 }
 
 .circle3 {
-    height: 200px;
-    width: 200px;
+    height: 100px;
+    width: 100px;
     opacity: 0.5;
     background: #2A1E5C;
     position: absolute;
     bottom: 70px;
-    right: 300px;
+    right: 200px;
     border-radius: 50%;
 }

@@ -56,7 +56,7 @@ export default class App extends Component {
                         <Route exact path='/signin' element={<Signin />} />
                         <Route exact path='/contactus' element={<ContactUs />} />
                         <Route exact path='/addbarter' element={<AddABarter />} />
-                        <Route exact path='/editbarter/:id' element={<EditBarter />} />
+                        <Route exact path='/editbarter/:barterId' element={<EditBarter />} />
                         <Route exact path='/profile/participatingbarters' element={<ParticipationgBarters />} />
                         <Route exact path='/profile/mybarters' element={<MyBarters />} />
                         <Route exact path='/profile/requests' element={<BarterRequests />} />

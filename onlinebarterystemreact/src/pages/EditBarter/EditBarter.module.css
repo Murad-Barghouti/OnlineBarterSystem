@@ -10,6 +10,7 @@
 }
 
 .overlay {
+    overflow-y:scroll;
     background-color: #0A0F0D;
     position: fixed;
     top: 0;
@@ -45,6 +46,11 @@
     border-radius: 8px;
 }
 
+.editBarterForm p {
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
 .editBarterForm select {
     margin-bottom: 20px;
     font-size: 16px;
@@ -53,6 +59,7 @@
     border: 1px solid #888;
     border-radius: 6px;
     opacity: 0.9;
+    color:#0A0F0D
 }
 
 .editBarterForm input {
@@ -83,6 +90,13 @@
     font-weight: 500;
 }
 
+.success {
+    color: #2d9423;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+
 /* For Tablets */
 @media only screen and (max-width: 1024px) {
 }
@@ -93,8 +107,8 @@
 
 
 .circle1 {
-    height: 500px;
-    width: 500px;
+    height: 400px;
+    width: 400px;
     opacity: 0.5;
     background: #f33d62;
     position: absolute;
@@ -104,8 +118,8 @@
 }
 
 .circle2 {
-    height: 300px;
-    width: 300px;
+    height: 200px;
+    width: 200px;
     opacity: 0.7;
     background: none;
     border: 10px solid #2A1E5C;
@@ -116,12 +130,12 @@
 }
 
 .circle3 {
-    height: 200px;
-    width: 200px;
+    height: 100px;
+    width: 100px;
     opacity: 0.5;
     background: #2A1E5C;
     position: absolute;
     bottom: 70px;
-    right: 300px;
+    right: 200px;
     border-radius: 50%;
 }

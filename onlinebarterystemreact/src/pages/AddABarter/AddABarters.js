@@ -45,7 +45,7 @@ const AddABarter = () => {
         setSuccess("");
         e.preventDefault();
 
-        if (!formState.description || formState.receiveType === 0 || formState.giveType === 0 || formState.receiveTypeId === 0 || !formState.giveTypeId === 0) {
+        if (!formState.description || formState.receiveType === 0 || formState.giveType === 0 || formState.receiveTypeId === 0 || formState.giveTypeId === 0) {
             setError("All of the fields are required");
             setLoading(false);
         } else {
@@ -79,7 +79,7 @@ const AddABarter = () => {
                 })
                 .catch((err) => {
                     console.log(err.message);
-                    setError("server error");
+                    setError("Server error");
                 });
         }
     };

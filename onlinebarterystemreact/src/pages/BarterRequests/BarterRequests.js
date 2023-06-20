@@ -117,8 +117,8 @@ const BarterRequests = () => {
                                         </div>
                                     </div>
                                     <div className={styles.buttons}>
-                                            <IoIosCheckmarkCircle style={{ fontSize: 35, color: '#0f950d' }} onClick={(e)=>handleAccept(id)} />
-                                            <IoIosCloseCircle style={{ fontSize: 35, color: '#c00e0e', marginLeft: 15 }} onClick={(e) => handleReject(id)} />
+                                            <IoIosCheckmarkCircle style={{ fontSize: 35, color: '#0f950d', cursor: 'pointer' }} onClick={(e)=>handleAccept(id)} />
+                                            <IoIosCloseCircle style={{ fontSize: 35, color: '#c00e0e', marginLeft: 15, cursor: 'pointer' }} onClick={(e) => handleReject(id)} />
                                     </div>
                                 </div>
                             );
