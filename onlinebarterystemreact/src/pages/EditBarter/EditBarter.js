@@ -67,13 +67,11 @@ const EditBarter = () => {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    description: formState.description,
-                    giveValue: 1,
-                    receiveValue:1
+                    description: formState.description
                 })
             };
             console.log(requestOptions);
-            fetch(baseURL + "/Barter", requestOptions)
+            fetch(baseURL + "/Barter/"+barterId, requestOptions)
                 .then(data => {
                     console.log(data);
                     setSuccess("Barter updated!")
@@ -105,74 +103,76 @@ const EditBarter = () => {
                                 value={formState.description}
                                 onChange={(e) => handleChange(e)}
                             />
-                            <p>Select category and subcategory what you want to trade:</p>
-                            <select
-                                id="giveType"
-                                name="giveType"
-                                value={formState.giveType}
-                                onChange={(e) => handleChange(e)}
-                                style={{ textTransform: 'capitalize' }}
-                            >
-                                <option value={0} disabled  >Select the category</option>
-                                {
-                                    categoryList.map((item) => {
-                                        console.log(item);
-                                        return <option key={item.id} value={item.id} style={{ textTransform: 'capitalize' }}>{item.name}</option>;
-                                    })
-                                }
-                            </select>
-                            <select
-                                id="giveTypeId"
-                                name="giveTypeId"
-                                value={formState.giveTypeId}
-                                onChange={(e) => handleChange(e)}
-                                style={{ textTransform: 'capitalize' }}
-                            >
-                                <option value={0} disabled  >Select the subcategory</option>
-                                {/*{
-                                    formState.giveType !== 0
-                                    &&
-                                    categoryList.filter(obj => { return ("" + obj.id) === formState.giveType })[0].subCategories.map((item) => {
-                                        return <option key={item.id} value={item.id} style={{ textTransform: 'capitalize' }}>{item.name}</option>;
-                                    })
+                            
+                            {//uncomment later
+                            // <p>Select category and subcategory what you want to trade:</p>
+                            // <select
+                            //     id="giveType"
+                            //     name="giveType"
+                            //     value={formState.giveType}
+                            //     onChange={(e) => handleChange(e)}
+                            //     style={{ textTransform: 'capitalize' }}
+                            // >
+                            //     <option value={0} disabled  >Select the category</option>
+                            //     {
+                            //         categoryList.map((item) => {
+                            //             console.log(item);
+                            //             return <option key={item.id} value={item.id} style={{ textTransform: 'capitalize' }}>{item.name}</option>;
+                            //         })
+                            //     }
+                            // </select>
+                            // <select
+                            //     id="giveTypeId"
+                            //     name="giveTypeId"
+                            //     value={formState.giveTypeId}
+                            //     onChange={(e) => handleChange(e)}
+                            //     style={{ textTransform: 'capitalize' }}
+                            // >
+                            //     <option value={0} disabled  >Select the subcategory</option>
+                            //     {/*{
+                            //         formState.giveType !== 0
+                            //         &&
+                            //         categoryList.filter(obj => { return ("" + obj.id) === formState.giveType })[0].subCategories.map((item) => {
+                            //             return <option key={item.id} value={item.id} style={{ textTransform: 'capitalize' }}>{item.name}</option>;
+                            //         })
 
-                                }*/}
+                            //     }*/}
 
-                            </select>
+                            // </select>
 
-                            <p>Select category and subcategory what you want in return:</p>
-                            <select
-                                id="receiveType"
-                                name="receiveType"
-                                value={formState.receiveType}
-                                onChange={(e) => handleChange(e)}
-                                style={{ textTransform: 'capitalize' }}
-                            >
-                                <option value={0} disabled  >Select the category</option>
-                                {
-                                    categoryList.map((item) => {
-                                        return <><option key={item.id} value={item.id} style={{ textTransform: 'capitalize' }}>{item.name}</option></>;
-                                    })
-                                }
-                            </select>
-                            <select
-                                id="receiveTypeId"
-                                name="receiveTypeId"
-                                value={formState.receiveTypeId}
-                                onChange={(e) => handleChange(e)}
-                                style={{ textTransform: 'capitalize' }}
-                            >
-                                <option value={0} disabled  >Select the subcategory</option>
-                                {/*{
-                                    formState.receiveType !== 0
-                                    &&
+                            // <p>Select category and subcategory what you want in return:</p>
+                            // <select
+                            //     id="receiveType"
+                            //     name="receiveType"
+                            //     value={formState.receiveType}
+                            //     onChange={(e) => handleChange(e)}
+                            //     style={{ textTransform: 'capitalize' }}
+                            // >
+                            //     <option value={0} disabled  >Select the category</option>
+                            //     {
+                            //         categoryList.map((item) => {
+                            //             return <><option key={item.id} value={item.id} style={{ textTransform: 'capitalize' }}>{item.name}</option></>;
+                            //         })
+                            //     }
+                            // </select>
+                            // <select
+                            //     id="receiveTypeId"
+                            //     name="receiveTypeId"
+                            //     value={formState.receiveTypeId}
+                            //     onChange={(e) => handleChange(e)}
+                            //     style={{ textTransform: 'capitalize' }}
+                            // >
+                            //     <option value={0} disabled  >Select the subcategory</option>
+                            //     {/*{
+                            //         formState.receiveType !== 0
+                            //         &&
 
-                                    categoryList.filter(obj => { return ("" + obj.id) === formState.receiveType })[0].subCategories.map((item) => {
-                                        return <option key={item.id} value={item.id} style={{ textTransform: 'capitalize' }}>{item.name}</option>;
-                                    })
-                                }*/}
-                            </select>
-
+                            //         categoryList.filter(obj => { return ("" + obj.id) === formState.receiveType })[0].subCategories.map((item) => {
+                            //             return <option key={item.id} value={item.id} style={{ textTransform: 'capitalize' }}>{item.name}</option>;
+                            //         })
+                            //     }*/}
+                            // </select>
+}
                             {error && (
                                 <div className={styles.error}>
                                     <MdError /> <span>{error}</span>
