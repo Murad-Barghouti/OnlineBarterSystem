@@ -112,7 +112,7 @@ const AddABarter = () => {
                                 onChange={(e) => handleChange(e)}
                                 style={{ textTransform: 'capitalize' }}
                             >
-                                <option value={0} disabled selected >Select the category</option>
+                                <option value={0} disabled  >Select the category</option>
                                 {
                                     categoryList.map((item) => {
                                         return <option key={item.id} value={item.id} style={{ textTransform: 'capitalize' }}>{item.name}</option>;
@@ -126,7 +126,7 @@ const AddABarter = () => {
                                 onChange={(e) => handleChange(e)}
                                 style={{ textTransform: 'capitalize' }}
                             >
-                                <option value={0} disabled selected >Select the subcategory</option>
+                                <option value={0} disabled  >Select the subcategory</option>
                                 {
                                     formState.giveType !== 0 &&
                                     categoryList.filter(obj => { return ("" + obj.id) === formState.giveType })[0].subCategories.map((item) => {
@@ -144,7 +144,7 @@ const AddABarter = () => {
                                 onChange={(e) => handleChange(e)}
                                 style={{ textTransform: 'capitalize' }}
                             >
-                                <option value={0} disabled selected >Select the category</option>
+                                <option value={0} disabled  >Select the category</option>
                                 {
                                     categoryList.map((item) => {
                                         return <><option key={item.id}  value={item.id} style={{ textTransform: 'capitalize' }}>{item.name}</option></>;
@@ -158,7 +158,7 @@ const AddABarter = () => {
                                 onChange={(e) => handleChange(e)}
                                 style={{ textTransform: 'capitalize' }}
                             >
-                                <option value={0} disabled selected >Select the subcategory</option>
+                                <option value={0} disabled  >Select the subcategory</option>
                                 {
                                     formState.receiveType !== 0 &&
                                     
