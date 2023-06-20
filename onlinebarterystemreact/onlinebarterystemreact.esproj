@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.VisualStudio.JavaScript.Sdk/0.5.83-alpha">
+  <PropertyGroup>
+    <StartupCommand>set BROWSER=none&amp;&amp;npm start</StartupCommand>
+    <JavaScriptTestRoot>src\</JavaScriptTestRoot>
+    <JavaScriptTestFramework>Jest</JavaScriptTestFramework>
+    <!-- Command to run on project build -->
+    <BuildCommand>
+    </BuildCommand>
+    <!-- Command to create an optimized build of the project that's ready for publishing -->
+    <ProductionBuildCommand>npm run build</ProductionBuildCommand>
+    <!-- Folder where production build objects will be placed -->
+    <BuildOutputFolder>$(MSBuildProjectDirectory)\build</BuildOutputFolder>
+  </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="src\components\Navbar\" />
+    <Folder Include="src\components\Profile\" />
+    <Folder Include="src\pages\ContactUs\" />
+    <Folder Include="src\pages\AddABarter\" />
+    <Folder Include="src\pages\MyBarters\" />
+    <Folder Include="src\pages\BarterRequests\" />
+    <Folder Include="src\pages\EditBarter\" />
+    <Folder Include="src\pages\AccountInfo\" />
+    <Folder Include="src\pages\Search\" />
+    <Folder Include="src\pages\ParticipatingBarters\" />
+    <Folder Include="src\pages\Signin\" />
+  </ItemGroup>
+</Project>

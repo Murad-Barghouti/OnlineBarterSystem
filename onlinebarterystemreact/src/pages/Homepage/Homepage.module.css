@@ -1,0 +1,108 @@
+.container {
+    margin: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #0A0F0D
+}
+
+.header {
+    display: flex;
+    background: #fff
+}
+
+.logo {
+    width: 200px;
+    margin: 15px 30px
+}
+
+
+.rightHeader{
+    right:0;
+    margin-right:0;
+    margin-left:auto;
+    padding:40px;
+}
+
+.headerItem {
+    margin: 40px;
+    font-size: 22px;
+    font-weight: 700;
+    color: #2A1E5C;
+}
+
+.headerItem:hover{
+    text-decoration:underline;
+
+}
+
+.main {
+   margin: 50px;
+
+}
+
+    .main h1, .main h3 {
+        color: #fff
+    }
+
+    .main h1{
+        margin-bottom: 30px;
+        font-weight:800;
+        font-size:34px;
+    }
+
+    .main h3 {
+        font-weight: 300;
+    }
+
+        .main h3 span {
+            font-weight: 700;
+            color: #f33d62;
+        }
+
+    .main button {
+        margin-top: 40px;
+        background: #f33d62;
+        border-radius: 30px;
+        width: 200px;
+        padding: 15px;
+        color: #fff;
+        font-size: 20px
+    }
+
+
+.circle1 {
+    height: 500px;
+    width: 500px;
+    opacity: 0.5;
+    background: #f33d62;
+    position: absolute;
+    bottom: -200px;
+    right: -100px;
+    border-radius: 50%;
+}
+
+.circle2 {
+    height: 300px;
+    width: 300px;
+    opacity: 0.7;
+    background: none;
+    border: 10px solid #2A1E5C;
+    position: absolute;
+    bottom: 100px;
+    right: -100px;
+    border-radius: 50%;
+}
+
+.circle3 {
+    height: 200px;
+    width: 200px;
+    opacity: 0.5;
+    background: #2A1E5C;
+    position: absolute;
+    bottom: 70px;
+    right: 300px;
+    border-radius: 50%;
+}
